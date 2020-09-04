@@ -1,11 +1,21 @@
 import React, { useState } from "react";
+import {useDispatch, useSelector} from 'react-redux';
 import { Button } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css";
-import ModalContract from './ModalContract';
+import ModalContract from "./ModalContract";
+import { getAllContacts } from '../redux/actions/contacts';
 
 function App() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    return () => {
+      dispatch(getAllContacts());
+    };
+  }, []);
+
+
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState(false);
   const handleModal = (modal) => setModal(modal);
@@ -19,11 +29,11 @@ function App() {
   if (modal == "all-contact-modal") {
     title = "All contacts";
     children = "All contacts in the world";
-  } else if(modal =="us-contact-modal") {
+  } else if (modal == "us-contact-modal") {
     title = "US contacts";
     children = "US contacts in the world";
   }
-  
+
   return (
     <div className="container">
       <div className="modal-button">
