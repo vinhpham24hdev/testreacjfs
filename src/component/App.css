@@ -7,6 +7,19 @@
   pointer-events: none;
 }
 
+.container {
+  width: 100%;
+}
+
+.modal-button {
+  display: flex;
+  top: 50%;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-float infinite 3s ease-in-out;
