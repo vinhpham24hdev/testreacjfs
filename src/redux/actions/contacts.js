@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from '../constants';
+import callApi from '../../callApi';
 
 const allContacts = {
   method: "get",
@@ -19,7 +20,7 @@ export const getAllContacts = (params = {}, resolve = () => {}) => (
       ...params,
     },
   });
-  return axios(allContacts)
+  return callApi('companyId=171', params)
     .then((response) => {
       resolve(response.data);
       dispatch({
@@ -57,7 +58,7 @@ export const getUsContacts = (params = {}, resolve = () => {}) => (
       ...params,
     },
   });
-  return axios(allContacts)
+  return callApi('companyId=171&countryId=226',params)
     .then((response) => {
       resolve(response.data);
       dispatch({

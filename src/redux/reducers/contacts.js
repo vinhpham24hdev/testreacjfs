@@ -33,7 +33,7 @@ export default function reducer(state = initialState, actions) {
         ...state,
         allContacts: {
           ...state.allContacts,
-          data: actions.data,
+          data: actions.payload.data,
           loading: false
         }
       };
