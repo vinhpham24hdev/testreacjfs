@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import { get } from "lodash";
+import { useDispatch } from "react-redux";
 import { Modal, Button, Table } from "react-bootstrap";
+import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 
-import ModalItem from './ModalItem';
+import { getAllContacts, getUsContacts } from "../redux/actions/contacts";
+
+import ModalItem from "./ModalItem";
+import MySpinner from "./Spinner";
 
 const ModalContract = ({
+  loading,
   title,
   children,
-  show,
   handleClose,
   handleModal,
   handleShow,
 }) => {
+  const dispatch = useDispatch();
+
   const objectBody = get(children, "data.contacts", {});
   const arrBody = Object.entries(objectBody);
   const [checked, setChecked] = useState(false);
@@ -22,8 +29,8 @@ const ModalContract = ({
   const handleItem = (item) => setItemData(item);
 
   return (
-    <>
-      <Modal show={show} onHide={handleClose} animation={true}>
+    <Router>
+      <Modal show onHide={handleClose} animation={true}>
         <Modal.Header>
           <Modal.Title> {title}</Modal.Title>
         </Modal.Header>
@@ -36,11 +43,20 @@ const ModalContract = ({
               </tr>
             </thead>
             <tbody>
+            {loading && <th style={{textAlign:'center'}} colspan ='2'><MySpinner /> </th>}
               {arrBody.map((item, index) => {
                 return (
                   <tr key={index}>
                     <th>{index}</th>
-                    <th style={{cursor:'pointer'}} onClick={() => {handleShowItem();handleItem(item[1])}}>{item[0]}</th>
+                    <th
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        handleShowItem();
+                        handleItem(item[1]);
+                      }}
+                    >
+                      {item[0]}
+                    </th>
                   </tr>
                 );
               })}
@@ -54,38 +70,50 @@ const ModalContract = ({
             checked={checked}
             onChange={() => setChecked(!checked)}
           />
-          <Button
-            style={{ background: "#46139f" }}
-            onClick={() => {
-              handleModal("all-contact-modal");
-              handleShow();
-            }}
-          >
-            ALL Contacts
-          </Button>
-          <Button
-            style={{ background: "#ff7f50" }}
-            onClick={() => {
-              handleModal("us-contact-modal");
-              handleShow();
-            }}
-          >
-            US Contacts
-          </Button>
-          <Button
-            style={{
-              background: "white",
-              border: "1px solid #46139f",
-              color: "#46139f",
-            }}
-            onClick={handleClose}
-          >
-            Close
-          </Button>
+          <Link to="/buttonA">
+            <Button
+              style={{ background: "#46139f" }}
+              onClick={() => {
+                handleModal("all-contact-modal");
+                handleShow();
+                dispatch(getAllContacts(1));
+              }}
+            >
+              ALL Contacts
+            </Button>
+          </Link>
+          <Link to="/buttonB">
+            <Button
+              style={{ background: "#ff7f50" }}
+              onClick={() => {
+                handleModal("us-contact-modal");
+                handleShow();
+                dispatch(getUsContacts(2));
+              }}
+            >
+              US Contacts
+            </Button>
+            <Button
+              style={{
+                background: "white",
+                border: "1px solid #46139f",
+                color: "#46139f",
+              }}
+              onClick={handleClose}
+            >
+              Close
+            </Button>
+          </Link>
         </Modal.Footer>
       </Modal>
-      {showItem ? <ModalItem data = {itemData} show ={showItem} handleClose = {handleCloseItem} /> : null}
-    </>
+      {showItem ? (
+        <ModalItem
+          data={itemData}
+          show={showItem}
+          handleClose={handleCloseItem}
+        />
+      ) : null}
+    </Router>
   );
 };
 

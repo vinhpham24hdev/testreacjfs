@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {get} from "lodash";
+import { get } from "lodash";
+import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 import { getAllContacts, getUsContacts } from "../redux/actions/contacts";
 
 import "./App.css";
@@ -10,15 +11,10 @@ import ModalContract from "./ModalContract";
 
 function App() {
   const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(getAllContacts(1));
-    dispatch(getUsContacts(2));
-  }, []);
-  
-  const storeContacts = useSelector(store => store.contacts);
-
-  const allContacts = get(storeContacts,"allContacts");
-  const usContacts = get(storeContacts,"usContacts");
+  const storeContacts = useSelector((store) => store.contacts);
+  let loading;
+  const allContacts = get(storeContacts, "allContacts");
+  const usContacts = get(storeContacts, "usContacts");
 
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState(false);
@@ -33,49 +29,60 @@ function App() {
   if (modal == "all-contact-modal") {
     title = "All contacts";
     children = allContacts;
+    loading = storeContacts.allContacts.loading;
   } else if (modal == "us-contact-modal") {
     title = "US contacts";
     children = usContacts;
+    loading = storeContacts.usContacts.loading;
   }
 
   return (
-    <div className="container">
-      <div className="modal-button">
-        <Button
-          style={{ background: "#46139f" }}
-          onClick={() => {
-            handleModal("all-contact-modal");
-            handleShow();
-          }}
-        >
-          Button A
-        </Button>
-        <Button
-          c
-          style={{ background: "#ff7f50" }}
-          onClick={() => {
-            handleModal("us-contact-modal");
-            handleShow();
-          }}
-        >
-          Button B
-        </Button>
+    <Router>
+      <div className="container">
+        <div className="modal-button">
+          <Link to="/buttonA">
+            <Button
+              style={{ background: "#46139f" }}
+              onClick={() => {
+                handleModal("all-contact-modal");
+                dispatch(getAllContacts(1));
+                handleShow();
+              }}
+            >
+              Button A
+            </Button>
+          </Link>
+          <Link to="/buttonB">
+            <Button
+              style={{ background: "#ff7f50" }}
+              onClick={() => {
+                handleModal("us-contact-modal");
+                dispatch(getUsContacts(2));
+                handleShow();
+              }}
+            >
+              Button B
+            </Button>
+          </Link>
+        </div>
+        <div className="modal-style">
+          {show ? (
+            <ModalContract
+              title={title}
+              children={children}
+              loading = {loading}
+              handleClose={handleClose}
+              handleModal={handleModal}
+              handleShow={handleShow}
+            />
+          ) : null}
+        </div>
+
+        {/* <Route path="/buttonA" exact component={buttonA} />
+        <Route path="/buttonB" exact component={buttonB} /> */}
       </div>
-      <div className="modal-style">
-        {show ? (
-          <ModalContract
-            title={title}
-            children={children}
-            show={show}
-            handleClose={handleClose}
-            handleModal={handleModal}
-            handleShow={handleShow}
-          />
-        ) : null}
-      </div>
-    </div>
+    </Router>
   );
 }
-
 
 export default App;
