@@ -4,13 +4,13 @@ const initialState = {
   allContacts: {
     data: [],
     loading: false,
-    error: ""
+    error: "",
   },
   usContacts: {
     data: [],
     loading: false,
-    error: ""
-  }
+    error: "",
+  },
 };
 
 export default function reducer(state = initialState, actions) {
@@ -29,8 +29,8 @@ export default function reducer(state = initialState, actions) {
         allContacts: {
           ...state.allContacts,
           data: actions.payload.data,
-          loading: false
-        }
+          loading: false,
+        },
       };
     case types.GET_ALL_CONTACTS_FAILD:
       return {
@@ -38,8 +38,34 @@ export default function reducer(state = initialState, actions) {
         allContacts: {
           ...state.allContacts,
           loading: false,
-          error: actions
-        }
+          error: actions,
+        },
+      };
+    case types.GET_MORE_ALL_CONTACTS:
+      return {
+        ...state,
+        allContacts: {
+          ...state.allContacts,
+          loading: true,
+        },
+      };
+    case types.GET_MORE_ALL_CONTACTS_SUCCED:
+      return {
+        ...state,
+        allContacts: {
+          ...state.allContacts,
+          data: actions.payload.data,
+          loading: false,
+        },
+      };
+    case types.GET_MORE_ALL_CONTACTS_FAILD:
+      return {
+        ...state,
+        allContacts: {
+          ...state.allContacts,
+          loading: false,
+          error: actions,
+        },
       };
     case types.GET_US_CONTACTS:
       return {
@@ -48,7 +74,7 @@ export default function reducer(state = initialState, actions) {
         usContacts: {
           ...state.usContacts,
           loading: true,
-        }
+        },
       };
     case types.GET_US_CONTACTS_SUCCED:
       return {
@@ -56,8 +82,8 @@ export default function reducer(state = initialState, actions) {
         usContacts: {
           ...state.usContacts,
           data: actions.payload.data,
-          loading: false
-        }
+          loading: false,
+        },
       };
     case types.GET_US_CONTACTS_FAILD:
       return {
@@ -65,8 +91,35 @@ export default function reducer(state = initialState, actions) {
         usContacts: {
           ...state.usContacts,
           loading: false,
-          error: actions.payload
-        }
+          error: actions.payload,
+        },
+      };
+    case types.GET_MORE_US_CONTACTS:
+      return {
+        ...state,
+        ...state,
+        usContacts: {
+          ...state.usContacts,
+          loading: true,
+        },
+      };
+    case types.GET_MORE_US_CONTACTS_SUCCED:
+      return {
+        ...state,
+        usContacts: {
+          ...state.usContacts,
+          data: actions.payload.data,
+          loading: false,
+        },
+      };
+    case types.GET_MORE_US_CONTACTS_FAILD:
+      return {
+        ...state,
+        usContacts: {
+          ...state.usContacts,
+          loading: false,
+          error: actions.payload,
+        },
       };
     default:
       return state;

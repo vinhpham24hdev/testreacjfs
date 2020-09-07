@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { get } from "lodash";
-import { Link, Route, BrowserRouter as Router } from "react-router-dom";
+import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { getAllContacts, getUsContacts } from "../redux/actions/contacts";
 
 import "./App.css";
@@ -70,7 +70,7 @@ function App() {
             <ModalContract
               title={title}
               children={children}
-              loading = {loading}
+              loading={loading}
               handleClose={handleClose}
               handleModal={handleModal}
               handleShow={handleShow}
@@ -78,8 +78,8 @@ function App() {
           ) : null}
         </div>
 
-        {/* <Route path="/buttonA" exact component={buttonA} />
-        <Route path="/buttonB" exact component={buttonB} /> */}
+        {/* <Route path="/buttonA" exact component={ModalContract} />
+        <Route path="/buttonB" exact component={ModalContract} /> */}
       </div>
     </Router>
   );

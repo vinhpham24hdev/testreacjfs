@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { get } from "lodash";
 import { useDispatch } from "react-redux";
-import { Modal, Button, Table } from "react-bootstrap";
-import { Link, Route, BrowserRouter as Router } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
+import { Link, BrowserRouter as Router } from "react-router-dom";
 
-import { getAllContacts, getUsContacts } from "../redux/actions/contacts";
+import {
+  getAllContacts,
+  getUsContacts,
+  getMoreAllContacts,
+  getMoreUsContacts,
+} from "../redux/actions/contacts";
 
-import CustomScrollBar from "./CustomScrollBar";
 import ModalItem from "./ModalItem";
 import TableData from "./TableData";
 
@@ -40,7 +44,7 @@ const ModalContract = ({
             arrBody={arrBody}
             handleShowItem={handleShowItem}
             handleItem={handleItem}
-            loading = {loading}
+            loading={loading}
           />
         </Modal.Body>
         <Modal.Footer>
@@ -73,17 +77,17 @@ const ModalContract = ({
             >
               US Contacts
             </Button>
-            <Button
-              style={{
-                background: "white",
-                border: "1px solid #46139f",
-                color: "#46139f",
-              }}
-              onClick={handleClose}
-            >
-              Close
-            </Button>
           </Link>
+          <Button
+            style={{
+              background: "white",
+              border: "1px solid #46139f",
+              color: "#46139f",
+            }}
+            onClick={handleClose}
+          >
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
       {showItem ? (
