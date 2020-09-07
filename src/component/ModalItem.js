@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { get } from "lodash";
 import { Modal, Button, Table } from "react-bootstrap";
 
-const ModalItem = ({ data, handleClose, show }) => {
+const ModalItem = ({ data, handleClose }) => {
   console.log(data);
   return (
     <>
-      <Modal show={show} onHide={handleClose} animation={true}>
+      <Modal show onHide={handleClose} animation={true}>
         <Modal.Header>
           <Modal.Title>{data.id}</Modal.Title>
         </Modal.Header>

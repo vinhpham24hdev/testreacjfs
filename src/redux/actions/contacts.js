@@ -1,15 +1,6 @@
-import axios from 'axios';
-import * as types from '../constants';
-import callApi from '../../callApi';
-
-const allContacts = {
-  method: "get",
-  url: "https://api.dev.pastorsline.com/api/contacts.json?companyId=171",
-  headers: {
-    Authorization:
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzEiLCJleHAiOjE2MDM3ODM0Mzd9.3ievseHtX0t3roGh7nBuNsiaQeSjfiHWyyx_5GlOLXk",
-  },
-};
+import axios from "axios";
+import * as types from "../constants";
+import callApi from "../../callApi";
 
 export const getAllContacts = (params = {}, resolve = () => {}) => (
   dispatch
@@ -20,7 +11,7 @@ export const getAllContacts = (params = {}, resolve = () => {}) => (
       ...params,
     },
   });
-  return callApi('companyId=171', params)
+  return callApi("companyId=171", params)
     .then((response) => {
       resolve(response.data);
       dispatch({
@@ -40,15 +31,6 @@ export const getAllContacts = (params = {}, resolve = () => {}) => (
     });
 };
 
-const usContacts = {
-  method: "get",
-  url: "https://api.dev.pastorsline.com/api/contacts.json?companyId=171&countryId=226",
-  headers: {
-    Authorization:
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzEiLCJleHAiOjE2MDM3ODM0Mzd9.3ievseHtX0t3roGh7nBuNsiaQeSjfiHWyyx_5GlOLXk",
-  },
-};
-
 export const getUsContacts = (params = {}, resolve = () => {}) => (
   dispatch
 ) => {
@@ -58,7 +40,7 @@ export const getUsContacts = (params = {}, resolve = () => {}) => (
       ...params,
     },
   });
-  return callApi('companyId=171&countryId=226',params)
+  return callApi("companyId=171&countryId=226", params)
     .then((response) => {
       resolve(response.data);
       dispatch({

@@ -2,7 +2,7 @@ import * as types from "../constants";
 
 const initialState = {
   allContacts: {
-    data: {},
+    data: [],
     loading: false,
     error: ""
   },
@@ -20,13 +20,8 @@ export default function reducer(state = initialState, actions) {
         ...state,
         allContacts: {
           ...state.allContacts,
-          loading: true
+          loading: true,
         },
-        usContacts: {
-          data: [],
-          loading: false,
-          error: ""
-        }
       };
     case types.GET_ALL_CONTACTS_SUCCED:
       return {
@@ -49,10 +44,10 @@ export default function reducer(state = initialState, actions) {
     case types.GET_US_CONTACTS:
       return {
         ...state,
+        ...state,
         usContacts: {
-          data: [],
-          error: "",
-          loading: true
+          ...state.usContacts,
+          loading: true,
         }
       };
     case types.GET_US_CONTACTS_SUCCED:

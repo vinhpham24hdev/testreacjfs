@@ -7,7 +7,7 @@ import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 import { getAllContacts, getUsContacts } from "../redux/actions/contacts";
 
 import "./App.css";
-import ModalContract from "./ModalContract";
+import ModalContract from "../component/ModalContract";
 
 function App() {
   const dispatch = useDispatch();

@@ -6,8 +6,9 @@ import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 
 import { getAllContacts, getUsContacts } from "../redux/actions/contacts";
 
+import CustomScrollBar from "./CustomScrollBar";
 import ModalItem from "./ModalItem";
-import MySpinner from "./Spinner";
+import TableData from "./TableData";
 
 const ModalContract = ({
   loading,
@@ -35,33 +36,12 @@ const ModalContract = ({
           <Modal.Title> {title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>ID</th>
-              </tr>
-            </thead>
-            <tbody>
-            {loading && <th style={{textAlign:'center'}} colspan ='2'><MySpinner /> </th>}
-              {arrBody.map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <th>{index}</th>
-                    <th
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        handleShowItem();
-                        handleItem(item[1]);
-                      }}
-                    >
-                      {item[0]}
-                    </th>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+          <TableData
+            arrBody={arrBody}
+            handleShowItem={handleShowItem}
+            handleItem={handleItem}
+            loading = {loading}
+          />
         </Modal.Body>
         <Modal.Footer>
           Only Even:
@@ -107,11 +87,7 @@ const ModalContract = ({
         </Modal.Footer>
       </Modal>
       {showItem ? (
-        <ModalItem
-          data={itemData}
-          show={showItem}
-          handleClose={handleCloseItem}
-        />
+        <ModalItem data={itemData} handleClose={handleCloseItem} />
       ) : null}
     </Router>
   );
