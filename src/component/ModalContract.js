@@ -13,6 +13,7 @@ import {
 
 import ModalItem from "./ModalItem";
 import TableData from "./TableData";
+import SearchBox from "./SearchBox";
 
 const ModalContract = ({
   loading,
@@ -39,6 +40,7 @@ const ModalContract = ({
         <Modal.Header>
           <Modal.Title> {title}</Modal.Title>
         </Modal.Header>
+        <SearchBox />
         <Modal.Body>
           <TableData
             arrBody={arrBody}
