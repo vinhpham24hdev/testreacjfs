@@ -32,8 +32,10 @@ const ModalContract = ({
   const handleCloseItem = () => setShowItem(false);
   const [itemData, setItemData] = useState();
   const handleItem = (item) => setItemData(item);
+  let [searchKey, setSearchKey] = useState(null);
   const handleSearch = (e) => {
-    
+    setSearchKey(e)
+    console.log(searchKey);
   };
  
   return (
@@ -50,6 +52,7 @@ const ModalContract = ({
             handleItem={handleItem}
             loading={loading}
             even ={checked}
+            searchKey={searchKey}
           />
         </Modal.Body>
         <Modal.Footer>

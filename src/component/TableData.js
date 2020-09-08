@@ -2,12 +2,14 @@ import React, {useState} from "react";
 import { Table } from "react-bootstrap";
 import MySpinner from "./Spinner";
 
-const TableData = ({ arrBody, handleShowItem, handleItem, loading, even }) => {
-  let arrData = [];
+const TableData = ({ arrBody, handleShowItem, handleItem, loading, even,  searchKey }) => {
+  let arrData = arrBody;
   if (even) {
     arrData = arrBody.filter(item =>{return item[0]%2 == 0})
-  } else {
-    arrData = arrBody
+  } 
+  if (searchKey) {
+    arrData = arrBody.filter(item =>{return item[0] == searchKey})
+
   }
 
 
