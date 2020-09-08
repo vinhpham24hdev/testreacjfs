@@ -35,6 +35,7 @@ function App() {
     children = usContacts;
     loading = storeContacts.usContacts.loading;
   }
+  let count = 0;
 
   return (
     <Router>
@@ -45,7 +46,7 @@ function App() {
               style={{ background: "#46139f" }}
               onClick={() => {
                 handleModal("all-contact-modal");
-                dispatch(getAllContacts(1));
+                dispatch(getAllContacts(count));
                 handleShow();
               }}
             >
@@ -57,7 +58,7 @@ function App() {
               style={{ background: "#ff7f50" }}
               onClick={() => {
                 handleModal("us-contact-modal");
-                dispatch(getUsContacts(2));
+                dispatch(getUsContacts(count));
                 handleShow();
               }}
             >
@@ -68,6 +69,7 @@ function App() {
         <div className="modal-style">
           {show ? (
             <ModalContract
+              count ={count}
               title={title}
               children={children}
               loading={loading}

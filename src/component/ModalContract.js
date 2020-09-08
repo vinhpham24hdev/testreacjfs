@@ -16,6 +16,7 @@ import TableData from "./TableData";
 import SearchBox from "./SearchBox";
 
 const ModalContract = ({
+  count,
   loading,
   title,
   children,
@@ -35,8 +36,16 @@ const ModalContract = ({
   let [searchKey, setSearchKey] = useState(null);
   const handleSearch = (e) => {
     setSearchKey(e)
-    console.log(searchKey);
   };
+  
+  const handleLoad = (e) => {
+    if (title == 'All contacts') {
+      return dispatch(getMoreAllContacts(e));
+    }
+    if (title == 'US contacts') {
+      return dispatch(getMoreUsContacts(e));
+    }
+  }
  
   return (
     <Router>
@@ -44,15 +53,17 @@ const ModalContract = ({
         <Modal.Header>
           <Modal.Title> {title}</Modal.Title>
         </Modal.Header>
-        <SearchBox handleSearch={handleSearch}/>
+        <SearchBox handleSearch={handleSearch} />
         <Modal.Body>
           <TableData
+            count={count}
             arrBody={arrBody}
             handleShowItem={handleShowItem}
             handleItem={handleItem}
             loading={loading}
-            even ={checked}
+            even={checked}
             searchKey={searchKey}
+            handleLoad={handleLoad}
           />
         </Modal.Body>
         <Modal.Footer>
@@ -80,7 +91,7 @@ const ModalContract = ({
               onClick={() => {
                 handleModal("us-contact-modal");
                 handleShow();
-                dispatch(getUsContacts(2));
+                dispatch(getUsContacts(1));
               }}
             >
               US Contacts
