@@ -13,8 +13,8 @@ function App() {
   const dispatch = useDispatch();
   const storeContacts = useSelector((store) => store.contacts);
   let loading;
-  const allContacts = get(storeContacts, "allContacts");
-  const usContacts = get(storeContacts, "usContacts");
+  const allContacts = storeContacts.allContacts;
+  const usContacts = storeContacts.usContacts;
 
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState(false);

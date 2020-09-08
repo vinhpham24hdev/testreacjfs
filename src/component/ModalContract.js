@@ -24,29 +24,32 @@ const ModalContract = ({
   handleShow,
 }) => {
   const dispatch = useDispatch();
-
   const objectBody = get(children, "data.contacts", {});
-  const arrBody = Object.entries(objectBody);
+  let arrBody = Object.entries(objectBody);
   const [checked, setChecked] = useState(false);
   const [showItem, setShowItem] = useState(false);
   const handleShowItem = () => setShowItem(true);
   const handleCloseItem = () => setShowItem(false);
   const [itemData, setItemData] = useState();
   const handleItem = (item) => setItemData(item);
-
+  const handleSearch = (e) => {
+    
+  };
+ 
   return (
     <Router>
       <Modal show onHide={handleClose} animation={true}>
         <Modal.Header>
           <Modal.Title> {title}</Modal.Title>
         </Modal.Header>
-        <SearchBox />
+        <SearchBox handleSearch={handleSearch}/>
         <Modal.Body>
           <TableData
             arrBody={arrBody}
             handleShowItem={handleShowItem}
             handleItem={handleItem}
             loading={loading}
+            even ={checked}
           />
         </Modal.Body>
         <Modal.Footer>

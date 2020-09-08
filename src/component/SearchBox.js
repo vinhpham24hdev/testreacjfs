@@ -1,7 +1,7 @@
 import React from "react";
 import { DebounceInput } from "react-debounce-input";
 
-const SearchBox = ({}) => {
+const SearchBox = ({handleSearch}) => {
   return (
     <div
       style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
@@ -10,7 +10,7 @@ const SearchBox = ({}) => {
       <DebounceInput
         minLength={2}
         debounceTimeout={300}
-        onChange={(event) => {}}
+        onChange={(event) => {handleSearch(event.target.value)}}
       />
     </div>
   );

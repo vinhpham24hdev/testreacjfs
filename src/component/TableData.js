@@ -1,8 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import { Table } from "react-bootstrap";
 import MySpinner from "./Spinner";
 
-const TableData = ({ arrBody, handleShowItem, handleItem, loading }) => {
+const TableData = ({ arrBody, handleShowItem, handleItem, loading, even }) => {
+  let arrData = [];
+  if (even) {
+    arrData = arrBody.filter(item =>{return item[0]%2 == 0})
+  } else {
+    arrData = arrBody
+  }
+
+
   return (
       <Table striped bordered hover>
         <thead>
@@ -13,12 +21,12 @@ const TableData = ({ arrBody, handleShowItem, handleItem, loading }) => {
         </thead>
         <tbody>
           {loading && (
-            <th style={{ textAlign: "center" }} colspan="2">
-              <MySpinner />{" "}
+            <th style={{ textAlign: "center" }} colSpan="2">
+              <MySpinner />
             </th>
           )}
 
-          {arrBody.map((item, index) => {
+          {arrData.map((item, index) => {
             return (
               <tr key={index}>
                 <th>{index}</th>
